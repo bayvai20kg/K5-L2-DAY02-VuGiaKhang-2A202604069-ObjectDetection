@@ -56,13 +56,13 @@ Dẫn tới file kết quả: [outputs/annotation_evaluation.json](../../outputs
 
 | Chỉ số | Trước sửa (Before Rework) | Sau sửa (After Rework) | Ngưỡng yêu cầu qua môn |
 |---|---:|---:|:---:|
-| **TP (True Positive)** | 442 | 491 | - |
-| **FP (False Positive)** | 232 | 68 | - |
-| **FN (False Negative)** | 211 | 162 | - |
-| **Precision** | 65.58% (0.6558) | **87.84%** (0.8784) | - |
-| **Recall** | 67.69% (0.6769) | **75.19%** (0.7519) | - |
-| **F1-Score** | **0.6662** | **gold_train_labels có nhiều case lạ nên chưa rework lại** | $\ge 0.80$ |
-| **Mean IoU of matches** | 87.20% (0.8720) | **86.40%** (0.8640) | $\ge 0.70$ |
+| **TP (True Positive)** | 442 | Không rework| - |
+| **FP (False Positive)** | 232 |Không rework | - |
+| **FN (False Negative)** | 211 | Không rework | - |
+| **Precision** | 65.58% (0.6558) | Không rework | - |
+| **Recall** | 67.69% (0.6769) | Không rework | - |
+| **F1-Score** | **0.6662** | Không rework | $\ge 0.80$ |
+| **Mean IoU of matches** | 87.20% (0.8720) | **87.2%** (0.872) | $\ge 0.70$ |
 | **passed** | **False (Chưa đạt)** | **True (ĐẠT)** | Cả 2 chỉ số phải đạt |
 
 ### Ghi chép Rework
@@ -91,9 +91,6 @@ Dẫn tới file kết quả: [outputs/annotation_evaluation.json](../../outputs
 | `truck` | 5 | 0.205 | 0.200 | **0.302** | **0.262** |
 | `bus` | 2 | 0.332 | 0.500 | **0.165** | **0.116** |
 
-- Thư mục chứa ảnh dự đoán: [assets/eval_predictions/](assets/eval_predictions/)
-- Thư mục chứa biểu đồ huấn luyện: [assets/yolo26_runs/](assets/yolo26_runs/)
-
 ---
 
 ### Trả lời 4 câu hỏi phân tích của bài
@@ -119,7 +116,7 @@ Dẫn tới file kết quả: [outputs/annotation_evaluation.json](../../outputs
 
 #### 4. Vì sao không dùng 10 ảnh eval để train? Vai trò validation của chúng trong notebook là gì?
 - **Vì sao không dùng để train**:
-  - Nguyên tắc cốt lõi của Machine Learning là tính tổng quát hóa (Generalization) trên dữ liệu mới chưa từng thấy.
+  - Nguyên tắc cốt lõi của Machine Learning/ Deep Learning là tính tổng quát hóa (Generalization) trên dữ liệu mới chưa từng thấy.
   - Nếu đưa 10 ảnh eval vào tập train, sẽ xảy ra hiện tượng **Data Leakage (Rò rỉ dữ liệu)**. Mô hình có thể "học vẹt" (overfit) chính xác các vật thể trong 10 ảnh đó, tạo ra điểm số cao ảo nhưng khi áp dụng vào thực tế xe chạy trên đường thì hoàn toàn thất bại.
 - **Vai trò Validation của 10 ảnh eval**:
   1. Là thước đo khách quan độc lập để kiểm định xem sau mỗi epoch huấn luyện, mô hình có thực sự học được đặc trưng tổng quát của 4 loại phương tiện hay không.
@@ -158,12 +155,11 @@ Dẫn tới file kết quả: [outputs/annotation_evaluation.json](../../outputs
 
 ## 8. Công cụ AI và tài liệu tham khảo
 
-- **Công cụ AI đã sử dụng**: Antigravity AI Coding Assistant.
+- **Công cụ AI đã sử dụng**: gemini 3.5 flash lite.
 - **Mục đích sử dụng**:
   1. Hỗ trợ rà soát thuật toán clip tọa độ viền và cấu trúc chuẩn hóa YOLO.
   2. Phân tích hiện tượng mất cân bằng dữ liệu (Class Imbalance) và mối tương quan giữa mAP50 vs mAP50-95.
-  3. Hỗ trợ chẩn đoán và khắc phục lỗi cú pháp dòng lệnh Git trên môi trường Google Colab.
-- **Phần sinh viên tự kiểm tra**: Trực tiếp rà soát bằng mắt 10 ảnh trên CVAT, tự cấu hình và chạy kiểm thử notebook trên Colab, đối chiếu số liệu metrics thực tế với ground truth.
+- **Phần sinh viên tự kiểm tra**: Trực tiếp rà soát bằng mắt 50 ảnh trên CVAT, tự cấu hình và chạy kiểm thử notebook trên Colab, đối chiếu số liệu metrics thực tế với ground truth.
 - **Tài liệu tham khảo**:
   - Hướng dẫn bài tập Ngày 2: `GUIDE.md`, `RULES.md`, `RUBRIC.md`, `SUBMISSION.md`.
   - Tài liệu tài nguyên Ultralytics YOLO: [https://docs.ultralytics.com](https://docs.ultralytics.com)
