@@ -9,6 +9,11 @@ import sys
 from dataclasses import dataclass
 from pathlib import Path
 
+if sys.stdout and hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+if sys.stderr and hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8")
+
 
 @dataclass(frozen=True)
 class Box:
