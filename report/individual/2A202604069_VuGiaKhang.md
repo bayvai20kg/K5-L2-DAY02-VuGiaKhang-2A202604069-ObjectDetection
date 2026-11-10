@@ -4,10 +4,10 @@
 
 - Họ tên: Vũ Gia Khang
 - MSSV: 2A202604069
-- Email: 147354661+bayvai20kg@users.noreply.github.com
-- Lớp: K5 - Level 2 (VinAI In Action)
+- Email: kvu7412@gmail.com
+- Lớp: K5 - Level 2B (VinAI In Action)
 - Link repo bài làm: [https://github.com/bayvai20kg/K5-L2-DAY02-VuGiaKhang-2A202604069-ObjectDetection](https://github.com/bayvai20kg/K5-L2-DAY02-VuGiaKhang-2A202604069-ObjectDetection)
-- Link Colab đã chạy: [https://colab.research.google.com/github/bayvai20kg/K5-L2-DAY02-VuGiaKhang-2A202604069-ObjectDetection/blob/main/notebooks/day2_annotation_to_yolo.ipynb](https://colab.research.google.com/github/bayvai20kg/K5-L2-DAY02-VuGiaKhang-2A202604069-ObjectDetection/blob/main/notebooks/day2_annotation_to_yolo.ipynb)
+- Link Colab đã chạy: [https://colab.research.google.com/drive/1BVhJpPmu9Lt72BuakRzvYNFtlqAzq4Z7?usp=sharing](https://colab.research.google.com/drive/1BVhJpPmu9Lt72BuakRzvYNFtlqAzq4Z7?usp=sharing)
 
 ---
 
@@ -101,8 +101,14 @@ Theo hướng dẫn của bài lab (*"Không có rework thì ghi rõ"*), học v
 | `truck` | 5 | 0.205 | 0.200 | **0.302** | **0.262** |
 | `bus` | 2 | 0.332 | 0.500 | **0.165** | **0.116** |
 
-- Thư mục chứa ảnh dự đoán: [assets/eval_predictions/](assets/eval_predictions/)
-- Thư mục chứa biểu đồ huấn luyện: [assets/yolo26_runs/](assets/yolo26_runs/)
+### Minh chứng hình ảnh và chỉ số đã trích xuất từ Colab
+- **Thư mục ảnh dự đoán trên 10 ảnh Eval**: [assets/eval_predictions/visuals/](assets/eval_predictions/visuals/)
+- **Thư mục biểu đồ huấn luyện và kết quả**: [assets/yolo26_runs/vehicle_annotation/](assets/yolo26_runs/vehicle_annotation/) và [assets/yolo26_runs/vehicle_eval/](assets/yolo26_runs/vehicle_eval/)
+- **Các biểu đồ tiêu biểu**:
+  - Biểu đồ tiến trình huấn luyện: [results.png](assets/yolo26_runs/vehicle_annotation/results.png)
+  - Ma trận nhầm lẫn (Confusion Matrix): [confusion_matrix.png](assets/yolo26_runs/vehicle_eval/confusion_matrix.png)
+  - Đường cong Precision-Recall: [BoxPR_curve.png](assets/yolo26_runs/vehicle_eval/BoxPR_curve.png)
+  - File thông số đánh giá tổng hợp: [model_eval_metrics.json](assets/model_eval_metrics.json)
 
 ---
 
@@ -110,7 +116,7 @@ Theo hướng dẫn của bài lab (*"Không có rework thì ghi rõ"*), học v
 
 #### 1. Lớp nào recall thấp nhất? Ảnh nào minh họa?
 - Lớp có Recall thấp nhất là **`truck`** (chỉ đạt **0.200** / 20.0%), tiếp sau đó là **`bus`** (**0.500** / 50.0%).
-- *Ảnh minh họa*: Trong tập eval, ảnh `drive_052.jpg` và `drive_055.jpg` có xe tải ở khoảng cách xa bị mô hình bỏ sót (False Negative) hoặc nhận diện nhầm thành `car`. Nguyên nhân là do ở góc nhìn từ xa, phần cabin xe tải bị khuất và thùng xe trông tương tự thân xe sedan/suv lớn, trong khi mô hình chưa được học đủ số lượng mẫu xe tải ở tập train.
+- *Ảnh minh họa*: Trong tập eval, ảnh [drive_052.jpg](assets/eval_predictions/visuals/drive_052.jpg) và [drive_055.jpg](assets/eval_predictions/visuals/drive_055.jpg) có xe tải ở khoảng cách xa bị mô hình bỏ sót (False Negative) hoặc nhận diện nhầm thành `car`. Nguyên nhân là do ở góc nhìn từ xa, phần cabin xe tải bị khuất và thùng xe trông tương tự thân xe sedan/suv lớn, trong khi mô hình chưa được học đủ số lượng mẫu xe tải ở tập train.
 
 #### 2. Nếu mAP50 cao nhưng mAP50–95 thấp, cần kiểm điều gì trên box?
 - Chỉ số **mAP50** chỉ đòi hỏi ngưỡng IoU đạt từ 0.50 (tương đối lỏng, chỉ cần box dự đoán bao trùm được khoảng một nửa vật thể là được tính đúng).
@@ -129,7 +135,7 @@ Theo hướng dẫn của bài lab (*"Không có rework thì ghi rõ"*), học v
 
 #### 4. Vì sao không dùng 10 ảnh eval để train? Vai trò validation của chúng trong notebook là gì?
 - **Vì sao không dùng để train**:
-  - Nguyên tắc cốt lõi của Machine Learning là tính tổng quát hóa (Generalization) trên dữ liệu mới chưa từng thấy.
+  - Nguyên tắc cốt lõi của Machine Learning / Deep Learning là tính tổng quát hóa (Generalization) trên dữ liệu mới chưa từng thấy.
   - Nếu đưa 10 ảnh eval vào tập train, sẽ xảy ra hiện tượng **Data Leakage (Rò rỉ dữ liệu)**. Mô hình có thể "học vẹt" (overfit) chính xác các vật thể trong 10 ảnh đó, tạo ra điểm số cao ảo nhưng khi áp dụng vào thực tế xe chạy trên đường thì hoàn toàn thất bại.
 - **Vai trò Validation của 10 ảnh eval**:
   1. Là thước đo khách quan độc lập để kiểm định xem sau mỗi epoch huấn luyện, mô hình có thực sự học được đặc trưng tổng quát của 4 loại phương tiện hay không.
@@ -168,12 +174,12 @@ Theo hướng dẫn của bài lab (*"Không có rework thì ghi rõ"*), học v
 
 ## 8. Công cụ AI và tài liệu tham khảo
 
-- **Công cụ AI đã sử dụng**: Antigravity AI Coding Assistant.
+- **Công cụ AI đã sử dụng**: gemini 3.5 flash lite.
 - **Mục đích sử dụng**:
   1. Hỗ trợ rà soát thuật toán clip tọa độ viền và cấu trúc chuẩn hóa YOLO.
   2. Phân tích hiện tượng mất cân bằng dữ liệu (Class Imbalance) và mối tương quan giữa mAP50 vs mAP50-95.
   3. Hỗ trợ chẩn đoán và khắc phục lỗi cú pháp dòng lệnh Git trên môi trường Google Colab.
-- **Phần sinh viên tự kiểm tra**: Trực tiếp rà soát bằng mắt 10 ảnh trên CVAT, tự cấu hình và chạy kiểm thử notebook trên Colab, đối chiếu số liệu metrics thực tế với ground truth.
+- **Phần sinh viên tự kiểm tra**: Trực tiếp rà soát bằng mắt 50 ảnh trên CVAT, tự cấu hình và chạy kiểm thử notebook trên Colab, đối chiếu số liệu metrics thực tế với ground truth.
 
 ### Danh mục tài liệu tham khảo
 
