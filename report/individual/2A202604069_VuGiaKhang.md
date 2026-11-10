@@ -4,8 +4,8 @@
 
 - Họ tên: Vũ Gia Khang
 - MSSV: 2A202604069
-- Email: 147354661+bayvai20kg@users.noreply.github.com
-- Lớp: K5 - Level 2 (VinAI In Action)
+- Email: kvu7412@gmail.com
+- Lớp: K5 - Level 2B (VinAI In Action)
 - Link repo bài làm: [https://github.com/bayvai20kg/K5-L2-DAY02-VuGiaKhang-2A202604069-ObjectDetection]
 - Link Colab đã chạy: [https://colab.research.google.com/drive/1BVhJpPmu9Lt72BuakRzvYNFtlqAzq4Z7?usp=sharing]
 
