@@ -8,7 +8,7 @@ gold_train_labels.winrar
 # Nhãn học viên trong dataset/labels/train/ phải được commit khi nộp bài.
 
 # Kết quả local/Colab không mặc định đưa lên Git; nộp theo hướng dẫn giảng viên.
-outputs/
+
 # Không commit checkpoint .pt, kể cả khi nằm trong report/individual/assets.
 *.pt
 __pycache__/
